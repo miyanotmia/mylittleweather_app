@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './Styles/styles.css'
-const WeatherApp = () => {
+const App = () => {
     const [weatherData, setWeatherData] = useState({
         city: 'Philadelphia',
         temp: '75°F',
@@ -64,77 +64,65 @@ const WeatherApp = () => {
         if (e.key === 'Enter'){
             handleSearch();
         }
-       }; return (<div className="weather-app">
-            <div className="weather-card">
-                
-                <div className="search-container">
-                    <input
-                        type="text"
-                        value={cityInput}
-                        onChange={(e) => setCityInput(e.target.value)}
-                        onKeyPress={handleKeyPress}
-                        placeholder="Enter city name"
-                        className="search-input"
-                        disabled={loading}
-                    />
-                    <button
-                        onClick={handleSearch}
-                        disabled={loading}
-                        className="search-button"
-                    >
-                        🔍
-                    </button>
-                </div>
-
-                {error && (
-                    <div className="error-message">
-                        {error}
-                    </div>
-                )}
-
-                {loading ? (
-                    <div className="loading-container">
-                        <div className="loading-spinner"></div>
-                        <p>Loading weather data...</p>
-                    </div>
-                ) : (
-                    <div className="weather-display">
-                        <div className="weather-main">
-                            {weatherData.icon.startsWith('/Assets/') ? (
-                                <img 
-                                    src={weatherData.icon} 
-                                    alt="weather icon" 
-                                    className="weather-icon-img"
-                                />
-                            ) : (
-                                <div className="weather-icon-emoji">
-                                    {weatherData.icon}
-                                </div>
-                            )}
-                            <h1 className="temperature">
-                                {weatherData.temp}
-                            </h1>
-                            <h2 className="city-name">
-                                {weatherData.city}
-                            </h2>
-                        </div>
-
-                        <div className="weather-details">
-                            <div className="detail-item">
-                                <div className="detail-icon">💧</div>
-                                <p className="detail-value">{weatherData.humidity}</p>
-                                <p className="detail-label">Humidity</p>
-                            </div>
-                            <div className="detail-item">
-                                <div className="detail-icon">💨</div>
-                                <p className="detail-value">{weatherData.windSpeed}</p>
-                                <p className="detail-label">Wind Speed</p>
-                            </div>
-                        </div>
-                    </div>
-                )}
+       }; return (<div className="card"> 
+            <div className="search"> 
+                <input
+                    type="text"
+                    value={cityInput}
+                    onChange={(e) => setCityInput(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Enter city name"
+                    disabled={loading}
+                />
+                <button
+                    onClick={handleSearch}
+                    disabled={loading}
+                >
+                    🔍
+                </button>
             </div>
+
+            {error && (
+                <div className="error-message">
+                    {error}
+                </div>
+            )}
+
+            {loading ? (
+                <div className="loading-container">
+                    <div className="loading-spinner"></div>
+                    <p>Loading weather data...</p>
+                </div>
+            ) : (
+                <div className="weather"> 
+                    <img 
+                        src={weatherData.icon} 
+                        alt="weather icon" 
+                        className="weather-icon"
+                    />
+                    <h1>{weatherData.temp}</h1>
+                    <h2>{weatherData.city}</h2>
+
+                    <div className="details"> 
+                        <div className="col">
+                            <img src="/Assets/humidity.png" alt="humidity icon" />
+                            <div>
+                                <p className="humidity">{weatherData.humidity}</p>
+                                <p>Humidity</p>
+                            </div>
+                        </div>
+                        <div className="col">
+                            <img src="/Assets/wind.png" alt="wind icon" />
+                            <div>
+                                <p className="wind">{weatherData.windSpeed}</p>
+                                <p>Wind Speed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
-export default WeatherApp
+
+export default App; 
